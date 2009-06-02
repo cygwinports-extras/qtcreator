@@ -1,0 +1,50 @@
+--- origsrc/qt-creator-1.1.0-src/share/qtcreator/gdbmacros/gdbmacros.cpp	2009-04-21 09:13:12.000000000 -0500
++++ src/qt-creator-1.1.0-src/share/qtcreator/gdbmacros/gdbmacros.cpp	2009-06-01 13:51:04.515054800 -0500
+@@ -2297,6 +2297,7 @@ static void qDumpStdString(QDumper &d)
+     d.disarm();
+ }
+ 
++#ifdef _GLIBCXX_USE_WCHAR_T
+ static void qDumpStdWString(QDumper &d)
+ {
+     const std::wstring &str = *reinterpret_cast<const std::wstring *>(d.data);
+@@ -2315,6 +2316,7 @@ static void qDumpStdWString(QDumper &d)
+ 
+     d.disarm();
+ }
++#endif
+ 
+ static void qDumpStdVector(QDumper &d)
+ {
+@@ -2496,8 +2498,10 @@ static void handleProtocolVersion2and3(Q
+                 qDumpQVector(d);
+             break;
+         case 's':
++#ifdef _GLIBCXX_USE_WCHAR_T
+             if (isEqual(type, "wstring"))
+                 qDumpStdWString(d);
++#endif
+             break;
+         case 't':
+             if (isEqual(type, "std::vector"))
+@@ -2512,8 +2516,10 @@ static void handleProtocolVersion2and3(Q
+                 qDumpStdSet(d);
+             else if (isEqual(type, "std::string") || isEqual(type, "string"))
+                 qDumpStdString(d);
++#ifdef _GLIBCXX_USE_WCHAR_T
+             else if (isEqual(type, "std::wstring"))
+                 qDumpStdWString(d);
++#endif
+             break;
+     }
+ 
+@@ -2595,7 +2601,9 @@ void *qDumpObjectData440(
+             "\"std::set\","
+             "\"std::string\","
+             "\"std::vector\","
++#ifdef _GLIBCXX_USE_WCHAR_T
+             "\"std::wstring\","
++#endif
+             "]";
+         d << ",qtversion=["
+             "\"" << ((QT_VERSION >> 16) & 255) << "\","

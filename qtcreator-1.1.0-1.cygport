@@ -1,0 +1,37 @@
+inherit qt4-qmake
+
+DESCRIPTION="Qt Creator IDE"
+HOMEPAGE="http://www.qtsoftware.com/"
+SRC_URI="http://download.qtsoftware.com/qtcreator/qt-creator-${PV}-src.zip"
+PATCH_URI="mirror://portage/dev-util/qt-creator/files/docs_gen.patch
+           1.1.0-debugger.patch
+           1.1.0-dlopen.patch
+           1.1.0-std-wstring.patch"
+
+SRC_DIR="qt-creator-${PV}-src"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	${QT4_QMAKE} qtcreator.pro
+	cygmake
+}
+
+src_install() {
+	cd ${B}
+	cygmake install INSTALL_ROOT=${D}/usr
+
+	cp -r lib ${D}/usr/
+	rm -f ${D}/usr/lib/qtcreator/*.a
+
+	echo -e '#! /bin/sh\nPATH="/usr/lib/qtcreator:/usr/lib/qtcreator/plugins/Nokia:${PATH}" exec /usr/bin/qtcreator.bin ${1+"$@"}' > ${D}/usr/bin/qtcreator
+
+	for i in 16 32 48 64 128 # 256 512
+	do
+		insinto /usr/share/icons/hicolor/${i}x${i}/apps
+		newins ${S}/src/plugins/coreplugin/images/qtcreator_logo_${i}.png qtcreator.png
+	done
+
+	make_desktop_entry qtcreator "Qt Creator IDE" qtcreator "Development;IDE;Qt"
+}
+DOCS="dist/changes-${PV}"
