@@ -4,16 +4,15 @@ DESCRIPTION="Qt Creator IDE"
 HOMEPAGE="http://www.qtsoftware.com/"
 SRC_URI="http://download.qtsoftware.com/qtcreator/qt-creator-${PV}-src.zip"
 PATCH_URI="mirror://portage/dev-util/qt-creator/files/docs_gen.patch
-           1.1.0-debugger.patch
+           1.2.0-debugger.patch
            1.1.0-dlopen.patch
-           1.1.0-std-wstring.patch"
+           1.2.0-std-wstring.patch"
 
 SRC_DIR="qt-creator-${PV}-src"
 
 src_compile() {
-	lndirs
 	cd ${B}
-	${QT4_QMAKE} qtcreator.pro
+	${QT4_QMAKE} ${S}/qtcreator.pro
 	cygmake
 }
 
@@ -22,7 +21,7 @@ src_install() {
 	cygmake install INSTALL_ROOT=${D}/usr
 
 	cp -r lib ${D}/usr/
-	rm -f ${D}/usr/lib/qtcreator/*.a
+	rm -f ${D}/usr/lib/qtcreator/*.a ${D}/usr/bin/qtcreator.exe
 
 	echo -e '#! /bin/sh\nPATH="/usr/lib/qtcreator:/usr/lib/qtcreator/plugins/Nokia:${PATH}" exec /usr/bin/qtcreator.bin ${1+"$@"}' > ${D}/usr/bin/qtcreator
 

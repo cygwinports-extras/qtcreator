@@ -8,24 +8,15 @@ libs/utils/process_stub requires either MinGW or <sys/ptrace.h> on *NIX.
      utils \
 -    utils/process_stub.pro \
      cplusplus
---- origsrc/qt-creator-1.1.0-src/src/plugins/debugger/gdbengine.cpp	2009-04-21 09:13:12.000000000 -0500
-+++ src/qt-creator-1.1.0-src/src/plugins/debugger/gdbengine.cpp	2009-06-01 13:40:10.173628700 -0500
-@@ -64,7 +64,7 @@
- #include <QtGui/QDialogButtonBox>
- #include <QtGui/QPushButton>
+--- origsrc/qt-creator-1.2.0-src/src/plugins/debugger/gdb/gdbengine.cpp	2009-06-19 08:58:11.000000000 -0500
++++ src/qt-creator-1.2.0-src/src/plugins/debugger/gdb/gdbengine.cpp	2009-06-29 01:10:25.271408500 -0500
+@@ -1889,7 +1889,7 @@ void GdbEngine::sendInsertBreakpoint(int
  
--#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
-+#if defined(Q_OS_LINUX) || defined(Q_OS_MAC) || defined(Q_OS_CYGWIN)
- #include <unistd.h>
- #include <dlfcn.h>
- #endif
-@@ -2040,7 +2040,7 @@ void GdbEngine::sendInsertBreakpoint(int
-     //    cmd += "-c " + data->condition + " ";
-     cmd += where;
- #endif
--#ifdef Q_OS_WIN
+     // set up fallback in case of pending breakpoints which aren't handled
+     // by the MI interface
+-#if defined(Q_OS_WIN)
 +#if defined(Q_OS_WIN) || defined(Q_OS_CYGWIN)
-     QString cmd = "-break-insert ";
+     QString cmd = _("-break-insert ");
      //if (!data->condition.isEmpty())
      //    cmd += "-c " + data->condition + " ";
 --- origsrc/qt-creator-1.1.0-src/src/plugins/debugger/outputcollector.cpp	2009-04-21 09:13:12.000000000 -0500
