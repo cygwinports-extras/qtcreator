@@ -42,15 +42,15 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack qtcreator-1.2.0-X-src.tar.bz2
+  unpack qtcreator-1.2.1-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./qtcreator-1.2.0-X.cygport all
+  cygport ./qtcreator-1.2.1-X.cygport all
 
 This will create:
-  /usr/src/qtcreator-1.2.0-X-src.tar.bz2
-  /usr/src/qtcreator-1.2.0-X.tar.bz2
+  /usr/src/qtcreator-1.2.1-X-src.tar.bz2
+  /usr/src/qtcreator-1.2.1-X.tar.bz2
 
 -------------------------------------------
 
@@ -114,7 +114,7 @@ Files included in the binary package:
   /usr/share/applications/qtcreator.desktop
   /usr/share/doc/qtcreator/HACKING
   /usr/share/doc/qtcreator/README
-  /usr/share/doc/qtcreator/changes-1.2.0
+  /usr/share/doc/qtcreator/changes-1.2.1
   /usr/share/doc/qtcreator/qtcreator.qch
   /usr/share/icons/hicolor/128x128/apps/qtcreator.png
   /usr/share/icons/hicolor/16x16/apps/qtcreator.png
@@ -163,8 +163,8 @@ Files included in the binary package:
 
 Port Notes:
 
------ version 1.2.0-1 -----
-Version bump.
+----- version 1.2.1-1 -----
+Version bump for Qt 4.5.
 
 ----- version 1.1.0-1 -----
 Initial release for Cygwin 1.7.
