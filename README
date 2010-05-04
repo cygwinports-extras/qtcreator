@@ -4,164 +4,61 @@ QtCreator is a cross-platform C++ IDE for development with the
 Qt framework.
 
 Runtime requirements:
-  cygwin-1.7.0-50
+  cygwin-1.7.5-1
+  libgcc1-4.3.4-3
+  libQtCore4-4.6.2-1
+  libQtDesigner4-4.6.2-1
+  libQtGui4-4.6.2-1
+  libQtHelp4-4.6.2-1
+  libQtNetwork4-4.6.2-1
+  libQtScript4-4.6.2-1
+  libQtSql4-4.6.2-1
+  libQtSvg4-4.6.2-1
+  libQtWebKit4-4.6.2-1
+  libQtXml4-4.6.2-1
+  libstdc++6-4.3.4-3
   cmake
   gdb
   git
-  libgcc1-4.3.2-2
   libQtCore4-devel
-  libQtCore4-4.5.2-1
-  libQtDesigner4-4.5.2-1
-  libQtGui4-4.5.2-1
-  libQtHelp4-4.5.2-1
-  libQtNetwork4-4.5.2-1
-  libQtScript4-4.5.2-1
-  libQtSvg4-4.5.2-1
-  libQtWebKit4-4.5.2-1
-  libQtXml4-4.5.2-1
-  libstdc++6-4.3.2-2
   qt4-doc
   subversion
 
 Build requirements:
 (besides corresponding -devel packages)
-  binutils-20080624-2
-  cygport-0.9.7-1
-  gawk-3.1.6-2
-  gcc4-core-4.3.2-2
-  gcc4-g++-4.3.2-2
+  binutils-2.20.51-1
+  cygport-0.9.83-1
+  gawk-3.1.7-1
+  gcc4-core-4.3.4-3
+  gcc4-g++-4.3.4-3
   make-3.81-2
-  sed-4.1.5-2
+  sed-4.2.1-1
 
 Canonical website:
-  http://www.qtsoftware.com/
+  http://qt.nokia.com/products/developer-tools
 
 Canonical download:
-  http://download.qtsoftware.com/qtcreator/
+  http://get.qt.nokia.com/qtcreator/
 
 -------------------------------------------
 
 Build instructions:
-  unpack qtcreator-1.2.1-X-src.tar.bz2
+  unpack qtcreator-1.3.1-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./qtcreator-1.2.1-X.cygport all
+  cygport ./qtcreator-1.3.1-X.cygport all
 
 This will create:
-  /usr/src/qtcreator-1.2.1-X-src.tar.bz2
-  /usr/src/qtcreator-1.2.1-X.tar.bz2
+  /usr/src/qtcreator-1.3.1-X-src.tar.bz2
+  /usr/src/qtcreator-1.3.1-X.tar.bz2
 
 -------------------------------------------
 
-Files included in the binary package:
-
-  /etc/postinstall/qtcreator.sh
-  /usr/bin/qtcreator
-  /usr/bin/qtcreator.bin.exe
-  /usr/lib/qtcreator/cygAggregation-1.dll
-  /usr/lib/qtcreator/cygCPlusPlus-1.dll
-  /usr/lib/qtcreator/cygDebuggingHelper-1.dll
-  /usr/lib/qtcreator/cygExtensionSystem-1.dll
-  /usr/lib/qtcreator/cygQtConcurrent-1.dll
-  /usr/lib/qtcreator/cygUtils-1.dll
-  /usr/lib/qtcreator/plugins/Nokia/BinEditor.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/Bookmarks.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/CMakeProjectManager.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/CodePaster.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/Core.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/CppEditor.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/CppTools.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/Debugger.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/Designer.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/FakeVim.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/Find.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/GenericProjectManager.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/Help.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/Perforce.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/ProjectExplorer.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/Qt4ProjectManager.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/QtScriptEditor.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/QuickOpen.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/ResourceEditor.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/ScmGit.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/Subversion.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/TextEditor.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/VCSBase.pluginspec
-  /usr/lib/qtcreator/plugins/Nokia/cygBinEditor.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygBookmarks.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygCMakeProjectManager.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygCodePaster.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygCore.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygCppEditor.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygCppTools.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygDebugger.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygDesigner.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygFakeVim.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygFind.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygGenericProjectManager.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygHelp.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygPerforce.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygProjectExplorer.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygQt4ProjectManager.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygQtScriptEditor.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygQuickOpen.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygResourceEditor.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygScmGit.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygSubversion.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygTextEditor.dll
-  /usr/lib/qtcreator/plugins/Nokia/cygVCSBase.dll
-  /usr/share/applications/qtcreator.desktop
-  /usr/share/doc/qtcreator/HACKING
-  /usr/share/doc/qtcreator/README
-  /usr/share/doc/qtcreator/changes-1.2.1
-  /usr/share/doc/qtcreator/qtcreator.qch
-  /usr/share/icons/hicolor/128x128/apps/qtcreator.png
-  /usr/share/icons/hicolor/16x16/apps/qtcreator.png
-  /usr/share/icons/hicolor/32x32/apps/qtcreator.png
-  /usr/share/icons/hicolor/48x48/apps/qtcreator.png
-  /usr/share/icons/hicolor/64x64/apps/qtcreator.png
-  /usr/share/pixmaps/qtcreator_logo_128.png
-  /usr/share/pixmaps/qtcreator_logo_16.png
-  /usr/share/pixmaps/qtcreator_logo_24.png
-  /usr/share/pixmaps/qtcreator_logo_256.png
-  /usr/share/pixmaps/qtcreator_logo_32.png
-  /usr/share/pixmaps/qtcreator_logo_48.png
-  /usr/share/pixmaps/qtcreator_logo_512.png
-  /usr/share/pixmaps/qtcreator_logo_64.png
-  /usr/share/qtcreator/designer/templates.xml
-  /usr/share/qtcreator/designer/templates/Dialog_with_Buttons_Bottom.ui
-  /usr/share/qtcreator/designer/templates/Dialog_with_Buttons_Right.ui
-  /usr/share/qtcreator/designer/templates/Dialog_without_Buttons.ui
-  /usr/share/qtcreator/designer/templates/Main_Window.ui
-  /usr/share/qtcreator/designer/templates/Widget.ui
-  /usr/share/qtcreator/gdbmacros/LGPL_EXCEPTION.TXT
-  /usr/share/qtcreator/gdbmacros/LICENSE.LGPL
-  /usr/share/qtcreator/gdbmacros/gdbmacros.cpp
-  /usr/share/qtcreator/gdbmacros/gdbmacros.cpp.orig
-  /usr/share/qtcreator/gdbmacros/gdbmacros.pro
-  /usr/share/qtcreator/gdbmacros/test/dumpertest.pro
-  /usr/share/qtcreator/gdbmacros/test/main.cpp
-  /usr/share/qtcreator/schemes/MS_Visual_C++.kms
-  /usr/share/qtcreator/schemes/Xcode.kms
-  /usr/share/qtcreator/snippets/class_generic.snp
-  /usr/share/qtcreator/snippets/class_qobject.snp
-  /usr/share/qtcreator/snippets/class_qwidget.snp
-  /usr/share/qtcreator/snippets/comment.snp
-  /usr/share/qtcreator/snippets/for.snp
-  /usr/share/qtcreator/snippets/foreach.snp
-  /usr/share/qtcreator/snippets/if.snp
-  /usr/share/qtcreator/snippets/ifelse.snp
-  /usr/share/qtcreator/templates/qt4project/main.cpp
-  /usr/share/qtcreator/templates/qt4project/mywidget.cpp
-  /usr/share/qtcreator/templates/qt4project/mywidget.h
-  /usr/share/qtcreator/templates/qt4project/mywidget_form.cpp
-  /usr/share/qtcreator/templates/qt4project/mywidget_form.h
-  /usr/share/qtcreator/templates/qt4project/widget.ui
-
-------------------
-
 Port Notes:
+
+----- version 1.3.1-1 -----
+Version bump for Qt 4.6.
 
 ----- version 1.2.1-1 -----
 Version bump for Qt 4.5.

@@ -1,0 +1,20 @@
+--- origsrc/qt-creator-1.3.1-src/src/libs/extensionsystem/pluginspec.cpp	2010-01-15 18:36:52.000000000 -0600
++++ src/qt-creator-1.3.1-src/src/libs/extensionsystem/pluginspec.cpp	2010-05-03 21:39:46.230145500 -0500
+@@ -766,6 +766,8 @@ bool PluginSpecPrivate::loadLibrary()
+ 
+ #ifdef Q_OS_WIN
+     QString libName = QString("%1/%2.dll").arg(location).arg(name);
++#elif defined(Q_OS_CYGWIN)
++    QString libName = QString("%1/cyg%2.dll").arg(location).arg(name);
+ #elif defined(Q_OS_MAC)
+     QString libName = QString("%1/lib%2.dylib").arg(location).arg(name);
+ #else
+@@ -776,6 +778,8 @@ bool PluginSpecPrivate::loadLibrary()
+ 
+ #ifdef Q_OS_WIN
+     QString libName = QString("%1/%2d.dll").arg(location).arg(name);
++#elif defined(Q_OS_CYGWIN)
++    QString libName = QString("%1/cyg%2.dll").arg(location).arg(name);
+ #elif defined(Q_OS_MAC)
+     QString libName = QString("%1/lib%2_debug.dylib").arg(location).arg(name);
+ #else

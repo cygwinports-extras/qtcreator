@@ -2,13 +2,13 @@ inherit qt4-qmake
 
 DESCRIPTION="Qt Creator IDE"
 HOMEPAGE="http://www.qtsoftware.com/"
-SRC_URI="http://download.qtsoftware.com/qtcreator/qt-creator-${PV}-src.zip"
-PATCH_URI="mirror://portage/dev-util/qt-creator/files/docs_gen.patch
-           1.2.0-debugger.patch
-           1.1.0-dlopen.patch
-           1.2.0-std-wstring.patch"
-
+SRC_URI="http://get.qt.nokia.com/qtcreator/qt-creator-${PV}-src.zip"
 SRC_DIR="qt-creator-${PV}-src"
+
+PATCH_URI="1.3.1-debugger.patch
+           1.3.1-plugins-dll.patch"
+
+DEPS_PATH="/usr/lib/qtcreator:/usr/lib/qtcreator/plugins/Nokia"
 
 src_compile() {
 	cd ${B}
@@ -23,7 +23,8 @@ src_install() {
 	cp -r lib ${D}/usr/
 	rm -f ${D}/usr/lib/qtcreator/*.a ${D}/usr/bin/qtcreator.exe
 
-	echo -e '#! /bin/sh\nPATH="/usr/lib/qtcreator:/usr/lib/qtcreator/plugins/Nokia:${PATH}" exec /usr/bin/qtcreator.bin ${1+"$@"}' > ${D}/usr/bin/qtcreator
+	echo -e "#!/bin/sh\nPATH=\"${DEPS_PATH}:\${PATH}\" exec /usr/bin/qtcreator.bin \"\$@\"" > ${D}/usr/bin/qtcreator
+	chmod +x ${D}/usr/bin/qtcreator
 
 	for i in 16 32 48 64 128 # 256 512
 	do
