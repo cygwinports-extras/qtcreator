@@ -1,0 +1,12 @@
+libs/utils/process_stub requires either MinGW or <sys/ptrace.h> on *NIX.
+
+--- origsrc/qt-creator-2.1.0-src/src/libs/libs.pro	2011-02-11 11:29:12.000000000 -0600
++++ src/qt-creator-2.1.0-src/src/libs/libs.pro	2011-03-25 03:18:38.037790600 -0500
+@@ -7,7 +7,6 @@ SUBDIRS   = \
+     aggregation \
+     extensionsystem \
+     utils \
+-    utils/process_stub.pro \
+     cplusplus \
+     qmljs \
+     qmleditorwidgets \

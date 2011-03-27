@@ -1,5 +1,5 @@
 category: Devel KDE
-requires: cmake gdb libgcc1 libQtCore4-devel libQtCore4 libQtDesigner4 libQtGui4 libQtHelp4 libQtNetwork4 libQtScript4 libQtSvg4 libQtWebKit4 libQtXml4 libstdc++6 qt4-doc
+requires: cmake gdb libgcc1 libQtCore4-devel libQtCore4 libQtDeclarative4 libQtDesigner4 libQtGui4 libQtHelp4 libQtNetwork4 libQtScript4 libQtSql4 libQtSvg4 libQtWebKit4 libQtXml4 libstdc++6 qt4-doc
 sdesc: "Qt Creator IDE"
 ldesc: "QtCreator is a cross-platform C++ IDE for development with the
 Qt framework."
