@@ -7,6 +7,6 @@ libs/utils/process_stub requires either MinGW or <sys/ptrace.h> on *NIX.
      extensionsystem \
      utils \
 -    utils/process_stub.pro \
+     languageutils \
      cplusplus \
      qmljs \
-     qmleditorwidgets \
