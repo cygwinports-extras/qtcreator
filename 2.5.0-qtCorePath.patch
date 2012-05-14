@@ -1,0 +1,13 @@
+--- origsrc/qt-creator-2.5.0-src/src/plugins/qtsupport/baseqtversion.cpp	2012-05-13 15:45:20.635052200 -0500
++++ src/qt-creator-2.5.0-src/src/plugins/qtsupport/baseqtversion.cpp	2012-05-13 17:06:36.727948800 -0500
+@@ -1215,6 +1215,10 @@ Utils::FileName BaseQtVersion::qtCorePat
+          << versionInfo.value(QLatin1String("QT_INSTALL_BINS"));
+ 
+     QFileInfoList staticLibs;
++#ifdef Q_OS_CYGWIN
++    const QFileInfo info(QString::fromLatin1("/usr/bin/cygQtCore-4.dll"));
++    return Utils::FileName(info);
++#endif
+     foreach (const QString &dir, dirs) {
+         if (dir.isEmpty())
+             continue;

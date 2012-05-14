@@ -1,19 +1,22 @@
 inherit qt4-qmake
 
 DESCRIPTION="Qt Creator IDE"
-HOMEPAGE="http://www.qtsoftware.com/"
-SRC_URI="mirror://qt/qtcreator/qt-creator-${PV}-src.zip"
+HOMEPAGE="http://qt.nokia.com/"
+SRC_URI="mirror://qt/qtcreator/qt-creator-${PV}-src.tar.gz"
 SRC_DIR="qt-creator-${PV}-src"
 
 PATCH_URI="
 	2.1.0-debugger.patch
 	1.3.1-plugins-dll.patch
-	2.1.0-botan.patch
-	2.2.1-abspath.patch
-	2.2.1-qtversionmanager.patch
+	2.3.0-botan.patch
+	2.5.0-compile.patch
+	2.5.0-vpath.patch
+	2.5.0-qtCorePath.patch
 "
 
 DEPS_PATH="/usr/lib/qtcreator:/usr/lib/qtcreator/plugins/Nokia"
+
+DIFF_EXCLUDES="app_version.h *.pluginspec"
 
 CYGQMAKE4_ARGS="DEFINES+=FIONREAD=TIOCINQ"
 
@@ -31,7 +34,7 @@ src_install() {
 	for i in 16 32 48 64 128 256 # 512
 	do
 		insinto /usr/share/icons/hicolor/${i}x${i}/apps
-		newins ${S}/src/plugins/coreplugin/images/qtcreator_logo_${i}.png qtcreator.png
+		doins ${S}/src/plugins/coreplugin/images/logo/${i}/qtcreator.png
 	done
 
 	make_desktop_entry qtcreator "Qt Creator IDE" qtcreator "Development;Qt"

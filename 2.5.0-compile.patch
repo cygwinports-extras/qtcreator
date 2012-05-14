@@ -1,0 +1,12 @@
+for struct timeval
+
+--- origsrc/qt-creator-2.5.0-src/src/libs/zeroconf/servicebrowser.cpp	2012-05-09 07:13:19.000000000 -0500
++++ src/qt-creator-2.5.0-src/src/libs/zeroconf/servicebrowser.cpp	2012-05-13 16:29:50.159740300 -0500
+@@ -45,6 +45,7 @@
+ #include <algorithm>
+ #include <errno.h>
+ #include <limits>
++#include <sys/time.h>
+ 
+ #include <QAtomicPointer>
+ #include <QCoreApplication>
