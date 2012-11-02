@@ -1,6 +1,12 @@
-inherit qt4-qmake
+inherit qt4-qmake python
 
-DESCRIPTION="Qt Creator IDE"
+NAME="qtcreator"
+VERSION=2.5.2
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="Qt Creator IDE"
+DESCRIPTION="QtCreator is a cross-platform C++ IDE for development with the
+Qt framework."
 HOMEPAGE="http://qt.nokia.com/"
 SRC_URI="mirror://qt/qtcreator/qt-creator-${PV}-src.tar.gz"
 SRC_DIR="qt-creator-${PV}-src"
@@ -18,7 +24,11 @@ DEPS_PATH="/usr/lib/qtcreator:/usr/lib/qtcreator/plugins/Nokia"
 
 DIFF_EXCLUDES="app_version.h *.pluginspec"
 
-CYGQMAKE4_ARGS="DEFINES+=FIONREAD=TIOCINQ"
+src_compile() {
+	cd ${B}
+	cygqmake4 ${S}/qtcreator.pro DEFINES+=FIONREAD=TIOCINQ
+	cygmake
+}
 
 src_install() {
 	cd ${B}
