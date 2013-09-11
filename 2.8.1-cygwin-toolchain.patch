@@ -1,0 +1,63 @@
+Unfortunately, there seems to be no way to distinguish MinGW, MSYS or
+Cygwin binaries from the PE header. :-(
+
+--- origsrc/qt-creator-2.8.1-src/src/plugins/projectexplorer/abi.cpp	2013-08-23 05:27:18.000000000 -0500
++++ src/qt-creator-2.8.1-src/src/plugins/projectexplorer/abi.cpp	2013-09-10 23:02:01.922938400 -0500
+@@ -643,7 +643,7 @@ Abi Abi::hostAbi()
+     OSFlavor subos = UnknownFlavor;
+     BinaryFormat format = UnknownFormat;
+ 
+-#if defined (Q_OS_WIN)
++#if defined (Q_OS_WIN) || defined(Q_OS_CYGWIN)
+     os = WindowsOS;
+ #if _MSC_VER == 1700
+     subos = WindowsMsvc2012Flavor;
+@@ -653,7 +653,7 @@ Abi Abi::hostAbi()
+     subos = WindowsMsvc2008Flavor;
+ #elif _MSC_VER == 1400
+     subos = WindowsMsvc2005Flavor;
+-#elif defined (Q_CC_MINGW)
++#elif defined (Q_CC_MINGW) || defined(Q_OS_CYGWIN)
+     subos = WindowsMSysFlavor;
+ #endif
+     format = PEFormat;
+--- origsrc/qt-creator-2.8.1-src/src/plugins/projectexplorer/gcctoolchain.cpp	2013-08-23 05:27:18.000000000 -0500
++++ src/qt-creator-2.8.1-src/src/plugins/projectexplorer/gcctoolchain.cpp	2013-09-10 23:03:00.454286200 -0500
+@@ -259,7 +259,7 @@ static QList<Abi> guessGccAbi(const QStr
+             if (flavor == Abi::UnknownFlavor)
+                 flavor = Abi::FreeBsdFlavor;
+             format = Abi::ElfFormat;
+-        } else if (p == QLatin1String("mingw32") || p == QLatin1String("win32") || p == QLatin1String("mingw32msvc")) {
++        } else if (p == QLatin1String("mingw32") || p == QLatin1String("win32") || p == QLatin1String("mingw32msvc") || p == QLatin1String("cygwin")) {
+             arch = Abi::X86Architecture;
+             os = Abi::WindowsOS;
+             flavor = Abi::WindowsMSysFlavor;
+--- origsrc/qt-creator-2.8.1-src/src/plugins/qt4projectmanager/qt4project.cpp	2013-08-23 05:27:18.000000000 -0500
++++ src/qt-creator-2.8.1-src/src/plugins/qt4projectmanager/qt4project.cpp	2013-09-10 23:10:33.516199900 -0500
+@@ -1549,6 +1549,18 @@ void Qt4Project::collectLibraryData(cons
+     const bool isPlugin = config.contains(QLatin1String("plugin"));
+     switch (toolchain->targetAbi().os()) {
+     case ProjectExplorer::Abi::WindowsOS: {
++#if 0 //def Q_OS_CYGWIN
++        targetFileName.prepend(QLatin1String(isStatic ? "lib" : "cyg"));
++        if (!isStatic && !isPlugin) {
++            targetFileName += QLatin1Char('-');
++            const QString version = node->singleVariableValue(VersionVar);
++            QString majorVersion = version.left(version.indexOf(QLatin1Char('.')));
++            if (majorVersion.isEmpty())
++                majorVersion = QLatin1String("1");
++            targetFileName += majorVersion;
++        }
++        targetFileName + QLatin1String(isStatic ? ".a" : ".dll");
++#else
+         QString targetVersionExt = node->singleVariableValue(TargetVersionExtVar);
+         if (targetVersionExt.isEmpty()) {
+             const QString version = node->singleVariableValue(VersionVar);
+@@ -1560,6 +1572,7 @@ void Qt4Project::collectLibraryData(cons
+         }
+         targetFileName += targetVersionExt + QLatin1Char('.');
+         targetFileName += QLatin1String(isStatic ? "lib" : "dll");
++#endif
+         deploymentData.addFile(destDirFor(ti) + QLatin1Char('/') + targetFileName, targetPath);
+         break;
+     }

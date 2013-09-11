@@ -1,0 +1,78 @@
+--- origsrc/qt-creator-2.8.1-src/src/libs/zeroconf/dnsSdLib.cpp	2013-09-10 21:19:10.577957700 -0500
++++ src/qt-creator-2.8.1-src/src/libs/zeroconf/dnsSdLib.cpp	2013-09-10 17:27:55.190330900 -0500
+@@ -104,7 +104,10 @@ private:
+     QLibrary dnsSdLib;
+ public:
+ 
+-    DnsSdZConfLib(QString libName = QLatin1String("dns_sd"), ZConfLib::Ptr fallBack = ZConfLib::Ptr(0)) : ZConfLib(fallBack), dnsSdLib(libName)
++    DnsSdZConfLib(const QString &libName = QLatin1String("dns_sd"),
++                  const QString &version = QLatin1String("1"),
++                  const ZConfLib::Ptr fallBack = ZConfLib::Ptr(0)) :
++         ZConfLib(fallBack), dnsSdLib(libName, version)
+     {
+ #ifndef ZCONF_MDNS_STATIC_LINKING
+         // dynamic linking
+@@ -302,8 +305,8 @@ public:
+     }
+ };
+ 
+-ZConfLib::Ptr ZConfLib::createDnsSdLib(const QString &libName, const ZConfLib::Ptr &fallback) {
+-    return ZConfLib::Ptr(new DnsSdZConfLib(libName, fallback));
++ZConfLib::Ptr ZConfLib::createDnsSdLib(const QString &libName, const QString &version, const ZConfLib::Ptr &fallback) {
++    return ZConfLib::Ptr(new DnsSdZConfLib(libName, version, fallback));
+ }
+ } // namespace Internal
+ } // namespace ZeroConf
+--- origsrc/qt-creator-2.8.1-src/src/libs/zeroconf/servicebrowser.cpp	2013-09-10 21:19:10.593958600 -0500
++++ src/qt-creator-2.8.1-src/src/libs/zeroconf/servicebrowser.cpp	2013-09-10 17:27:00.391196500 -0500
+@@ -43,6 +43,7 @@
+ #include <errno.h>
+ #include <limits>
+ #include <signal.h>
++#include <sys/time.h>
+ #ifdef Q_OS_UNIX
+ // for select()
+ #  include <unistd.h>
+@@ -157,7 +158,7 @@ Q_GLOBAL_STATIC(ZeroConfLib, zeroConfLib
+ #endif
+ 
+ ZeroConfLib::ZeroConfLib(): m_lock(QMutex::Recursive),
+-    m_defaultLib(ZConfLib::createDnsSdLib(QLatin1String(defaultmDnsSdLibName),
++    m_defaultLib(ZConfLib::createDnsSdLib(QLatin1String(defaultmDnsSdLibName),QLatin1String("1"),
+                  ZConfLib::createEmbeddedLib(QString(),
+                  ZConfLib::createAvahiLib(QLatin1String("avahi-client"),QLatin1String("3"),
+                  ZConfLib::createEmbeddedLib(QLatin1String(defaultmDNSDaemonName))))))
+@@ -181,7 +182,7 @@ void ZeroConfLib::setDefaultLib(LibUsage
+     QMutexLocker l(&m_lock);
+     switch (usage){
+     case (UseDnsSdOnly):
+-        m_defaultLib = ZConfLib::createDnsSdLib(dnsSdLibName);
++        m_defaultLib = ZConfLib::createDnsSdLib(dnsSdLibName, QLatin1String("1"));
+         break;
+     case (UseEmbeddedOnly):
+         m_defaultLib = ZConfLib::createEmbeddedLib(dnsSdDaemonPath);
+@@ -191,11 +192,11 @@ void ZeroConfLib::setDefaultLib(LibUsage
+         break;
+     case (UseAvahiOrDnsSd):
+         m_defaultLib = ZConfLib::createAvahiLib(avahiLibName, avahiVersion,
+-                       ZConfLib::createDnsSdLib(dnsSdLibName));
++                       ZConfLib::createDnsSdLib(dnsSdLibName, QLatin1String("1")));
+         break;
+     case (UseAvahiOrDnsSdOrEmbedded):
+         m_defaultLib = ZConfLib::createAvahiLib(avahiLibName, avahiVersion,
+-                       ZConfLib::createDnsSdLib(dnsSdLibName,
++                       ZConfLib::createDnsSdLib(dnsSdLibName, QLatin1String("1"),
+                        ZConfLib::createEmbeddedLib(dnsSdDaemonPath)));
+         break;
+     default:
+--- origsrc/qt-creator-2.8.1-src/src/libs/zeroconf/servicebrowser_p.h	2013-08-23 05:27:18.000000000 -0500
++++ src/qt-creator-2.8.1-src/src/libs/zeroconf/servicebrowser_p.h	2013-09-10 17:00:58.209844900 -0500
+@@ -121,7 +121,7 @@ public:
+     int maxErrors() const;
+ 
+     static Ptr createEmbeddedLib(const QString &daemonPath, const Ptr &fallback = Ptr(0));
+-    static Ptr createDnsSdLib(const QString &libName, const Ptr &fallback = Ptr(0));
++    static Ptr createDnsSdLib(const QString &libName, const QString &version, const Ptr &fallback = Ptr(0));
+     static Ptr createAvahiLib(const QString &libName, const QString &version, const Ptr &fallback = Ptr(0));
+ protected:
+     bool m_isOk;

@@ -11,10 +11,7 @@
      out ~= s|^$$re_escape($$SRCRESOURCEDIR)||$$i_flag
 --- origsrc/qt-creator-2.5.0-src/src/app/app.pro	2012-05-09 07:13:19.000000000 -0500
 +++ src/qt-creator-2.5.0-src/src/app/app.pro	2012-05-13 16:22:38.979078200 -0500
-@@ -37,4 +37,4 @@ OTHER_FILES += qtcreator.rc \
-     Info.plist.in \
-     $$PWD/app_version.h.in
- 
+@@ -40,1 +40,1 @@ OTHER_FILES += qtcreator.rc \
 -QMAKE_SUBSTITUTES += $$PWD/app_version.h.in
 +QMAKE_SUBSTITUTES += app_version.h.in
 --- origsrc/qt-creator-2.5.0-src/src/qtcreatorplugin.pri	2012-05-09 07:13:19.000000000 -0500
